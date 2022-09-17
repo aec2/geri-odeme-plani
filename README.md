@@ -1,3 +1,3 @@
 # Fimple - React ile Geri Ödeme Planı
 
-![img](https://imgur.com/a/k7bvEMX)
+![img](https://i.imgur.com/T96hDHf.png)
