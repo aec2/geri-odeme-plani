@@ -1,8 +1,14 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test("Appbar renders correctly", () => {
+  const { debug, container } = render(<App />);
+
+  const targetEl = screen.getByText("Fimple Practicum");
+  expect(targetEl).toBeInTheDocument();
 });
+
+
+test("Paybackplan function works correctly", () => {
+    
+})
