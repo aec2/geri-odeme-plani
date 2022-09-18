@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
-import { MainContext, useContext } from "../context";
+import { MainContext, useContext } from "../context/context";
 import { PaybackPlanCalculator } from "../helpers/BusinessHelper.js";
 import {
   maxMaturityDateErrorDemandCredit,

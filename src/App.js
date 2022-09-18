@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { MainContext } from "./context";
+import { MainContext } from "./context/context";
 import { Grid } from "@mui/material";
 import UserInputForm from "./components/UserInputForm.js";
 import PayBackPlanTable from "./components/PayBackPlanTable.js";

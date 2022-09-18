@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { MainContext, useContext } from "../context";
+import { MainContext, useContext } from "../context/context";
 
 export default function PayBackPlanTable() {
   const { paybackPlanArray } = useContext(MainContext);

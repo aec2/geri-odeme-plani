@@ -2,7 +2,7 @@ import React from "react";
 import { TextField } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import { NumericFormat } from "react-number-format";
-import { MainContext, useContext } from "../context";
+import { MainContext, useContext } from "../context/context";
 
 function NumericInput(props) {
   const { value = "", handleChange = () => {}, ...params } = props;
