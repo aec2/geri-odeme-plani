@@ -1,3 +1,16 @@
+/**
+ * Calculates paybackplan table.
+ *
+ * @param {float}     rate -->  profit rate (depends on installementType)
+ * @param {int}       periods --> a particular length of time of a payment
+ * @param {int}       present --> total amount that client requests
+ * @param {float}     kkdf    --> certain tax rate
+ * @param {float}     bsmv    --> certain tax rate
+ * @param {int}       installmentPaymentType --> weekly, monthly, yearly payment types
+ * @param {boolean}   isExempted --> whether it is a personal loan or real estate loan
+ *
+ * @return {array of object} --> Returns rows of paybackplan table
+ */
 const PaybackPlanCalculator = function (
   rate,
   periods,
@@ -20,7 +33,7 @@ const PaybackPlanCalculator = function (
       isExempted
     ).toFixed(2)
   );
-  let principal = present;
+  let principal = present; // total amount
   for (let i = 1; i <= periods; i++) {
     let installment = {};
     installment.InstallmentCount = i;
@@ -42,7 +55,7 @@ const PaybackPlanCalculator = function (
       ).toFixed(2)
     );
     principal = principal - installment.installmentPrincipal;
-    installment.remainingPrincipal = Number(principal.toFixed(2));
+    installment.remainingPrincipal = Number(principal.toFixed(2)); 
     if (i === Number(periods)) {
       installment.remainingPrincipal = 0;
       installment.installmentPrincipal =
@@ -61,6 +74,19 @@ const PaybackPlanCalculator = function (
   return paybackPlan;
 };
 
+/**
+ * Calculates installment amount to be used in paybackplan.
+ *
+ * @param {float}     rate -->  profit rate (depends on installementType)
+ * @param {int}       periods --> a particular length of time of a payment
+ * @param {int}       present --> total amount that client requests
+ * @param {float}     kkdf    --> certain tax rate
+ * @param {float}     bsmv    --> certain tax rate
+ * @param {int}       installmentPaymentType --> weekly, monthly, yearly payment types
+ * @param {boolean}   isExempted --> whether it is a personal loan or real estate loan
+ *
+ * @return {float} --> Returns value of installment amount.
+ */
 const InstallmentAmountCalculator = function (
   rate,
   periods,
@@ -73,21 +99,12 @@ const InstallmentAmountCalculator = function (
   if (!isExempted) {
     rate = rate * (installmentPaymentType / 30) * (1 + kkdf + bsmv);
   }
-  var future = 0;
-  var type = 0;
 
   if (rate === 0) {
-    return (present + future) / periods;
+    return present / periods;
   } else {
     var term = Math.pow(1 + rate, periods);
-    if (type === 1) {
-      return (
-        ((future * rate) / (term - 1) + (present * rate) / (1 - 1 / term)) /
-        (1 + rate)
-      );
-    } else {
-      return (future * rate) / (term - 1) + (present * rate) / (1 - 1 / term);
-    }
+    return (present * rate) / (1 - 1 / term);
   }
 };
 

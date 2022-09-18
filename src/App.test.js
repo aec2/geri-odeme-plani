@@ -7,8 +7,3 @@ test("Appbar renders correctly", () => {
   const targetEl = screen.getByText("Fimple Practicum");
   expect(targetEl).toBeInTheDocument();
 });
-
-
-test("Paybackplan function works correctly", () => {
-    
-})

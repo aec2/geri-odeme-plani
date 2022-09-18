@@ -1,6 +1,6 @@
-import { InstallmentAmountCalculator } from "./Helper/BusinessHelper";
+import { InstallmentAmountCalculator } from "./helpers/BusinessHelper";
 
-describe("Taksit Testi", () => {
+describe("Installment Test", () => {
   it("return installment amount correctly for monthly payment", () => {
     let res = Number(
       InstallmentAmountCalculator(

@@ -50,8 +50,6 @@ const ModalInfo = function (props, ref) {
                   height: "80%",
                   width: "100%",
                   marginTop: "25px",
-                  // maxHeight: { xs: 233, md: 167 },
-                  // maxWidth: { xs: 350, md: 250 },
                 }}
                 src="./imgs/modal_info_img.jpg"
               />

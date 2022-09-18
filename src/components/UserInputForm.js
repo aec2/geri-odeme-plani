@@ -6,8 +6,14 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import { MainContext, useContext } from "../context";
-import { PaybackPlanCalculator } from "../Helper/BusinessHelper.js";
-import { maxMaturityDateErrorDemandCredit } from "../Helper/Constants";
+import { PaybackPlanCalculator } from "../helpers/BusinessHelper.js";
+import {
+  maxMaturityDateErrorDemandCredit,
+  minRealEstateLoanAmount,
+  maxRealEstateLoanAmount,
+  minPersonalFinanceLoanAmount,
+  maxPersonalFinanceLoanAmount,
+} from "../helpers/Constants";
 import NumericInput from "./NumericInput";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,7 +23,6 @@ export default function UserInputForm() {
     installmentCount,
     setInstallmentCount,
     totalAmount,
-    setTotalAmount,
     loanType,
     setLoanType,
     installmentPaymentType,
@@ -28,7 +33,6 @@ export default function UserInputForm() {
     setKkdf,
     bsmv,
     setBsmv,
-    paybackPlanArray,
     setPaybackPlanArray,
   } = useContext(MainContext);
 
@@ -48,7 +52,7 @@ export default function UserInputForm() {
   const fillTable = () => {
     if (loanType === "I" && installmentCount > 24) {
       setPaybackPlanArray([]);
-      notify();
+      notify(); // notifies in case of personal credit loans payment period is more then 24
       return;
     }
 
@@ -88,15 +92,17 @@ export default function UserInputForm() {
               name="totalAmount"
               value={totalAmount}
               error={
-                (loanType === "I" && totalAmount > 100000) ||
+                (loanType === "I" &&
+                  (totalAmount > maxPersonalFinanceLoanAmount ||
+                    totalAmount < minPersonalFinanceLoanAmount)) ||
                 (loanType === "K" &&
-                  (totalAmount > 1000000 || totalAmount < 10000))
+                  (totalAmount > maxRealEstateLoanAmount ||
+                    totalAmount < minRealEstateLoanAmount))
               }
-              // handleChange={(e) => e.target.value}
               helperText={
                 loanType === "K"
-                  ? "10.000 - 1.000.000 TL arası bir tutar giriniz."
-                  : "1.000 - 100.000 TL arası bir tutar giriniz."
+                  ? `${minRealEstateLoanAmount} - ${maxRealEstateLoanAmount} TL arası bir tutar giriniz.`
+                  : `${minPersonalFinanceLoanAmount} - ${maxPersonalFinanceLoanAmount} TL arası bir tutar giriniz.`
               }
             ></NumericInput>
           </Grid>
